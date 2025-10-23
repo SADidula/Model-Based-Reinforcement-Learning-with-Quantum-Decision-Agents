@@ -130,26 +130,6 @@ This document describes each file in the ursina_sim project, its responsibilitie
 
 - Config drives behavior everywhere, keeping topics, frames, and robot specifics consistent.
 
-## Key Runtime Notes
-
-- Launch/Run:
-  - Use ROS2 launch or direct node execution to start sim_node.py.
-  - Ensure config/robotic_config.json is discoverable and matches the robot description and topics.
-- Metrics:
-  - Metrics are printed every simulation step and can be redirected to logs for analysis.
-- Extensibility:
-  - New polygon types or path generators can be added to polygon_path.py.
-  - New controllers can be registered and selected via configuration without changing sim_node.py.
-
-## Architecture at a Glance
-
-- ROS 2 Python node coordinates simulation, targets, and arm control.
-- MoveIt 2 provides inverse kinematics and trajectory generation.
-- The simulator publishes visualization markers and target poses.
-- Optional learning components (PyTorch) can drive policies.
-- Configuration is JSON-backed and accessed via a typed Python helper.
-- Packaging uses ament_python for ROS 2 and setuptools for Python.
-
 ## Technology Stack
 
 - Language: Python 3.x
