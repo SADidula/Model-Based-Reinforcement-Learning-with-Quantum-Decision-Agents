@@ -49,3 +49,69 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+# ROS2 / Colcon / Gazebo .gitignore
+
+# Colcon build artifacts
+build/
+install/
+log/
+
+# ROS2 workspace overlay
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.so
+*.swp
+*.swo
+*.bak
+
+# CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+*.cbp
+
+# Gazebo generated files
+~/.gazebo/
+gazebo.log
+*.world~
+*.model~
+*.sdf~
+*.urdf~
+
+# Launch and config temp
+*.launch.pyc
+*.yaml~
+*.rviz~
+*.ini~
+*.cfg~
+*.launch~
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.user
+*.workspace
+*.code-workspace
+
+# System and OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+*.bak
+
+# Python venvs
+venv/
+.env/
+env/
+
+# ROS2 msg/srv/build outputs
+*.msg.py
+*.srv.py
+*.action.py
+*.idl
