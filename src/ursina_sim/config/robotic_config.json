@@ -1,0 +1,16 @@
+{
+  "robot_name": "ur5",
+  "group_name": "ur_manipulator",
+  "urdf_path": "~/ws_moveit2/install/urdf/ur5.urdf",
+  "joint_names": [
+    "shoulder_pan_joint",
+    "shoulder_lift_joint",
+    "elbow_joint",
+    "wrist_1_joint",
+    "wrist_2_joint",
+    "wrist_3_joint"
+  ],
+  "base_link": "base_link",
+  "tool_link": "tool0",
+  "safety_radius": 0.5
+}
