@@ -271,12 +271,15 @@ This document describes each file in the ursina_sim project, its responsibilitie
 - Run
   - Source the workspace: source install/setup.bash
   - Launch the simulator node with MoveIt control enabled:
-    - ros2 run ursina_sim sim_node --config config/robotic_config.json --moveit_every 0.2
+    - _Train_
+      - ros2 run ursina_sim sim_node --max_radius=0.12 --offset_x=0.4 --verbose --agent rl --mode train --path circle --save_every 1000 --    stop_after_steps 10000 (for single selected path)
+      - ros2 run ursina_sim sim_node --max_radius=2.5 --verbose --agent rl --mode train --save_every 1000 --multi_paths circle,triangle,square,pentagon,star,figure8 --steps_per_path 10000 (for multiple paths)
+    - _Evaluation_
+      - ros2 run ursina_sim sim_node --max_radius=0.12 --offset_x=0.4 --verbose --agent rl --mode eval --path circle
 
-- Visualization
-  - Start RViz and add:
-    - Pose and Marker displays subscribed to the simulator topics.
-    - RobotModel for MoveIt planning group if available.
+- Visualization (_Allways start your ROS/Gazebo environment in Moveit_)
+  - No need to start ROS2/Gazebo Environments:
+    - ros2 launch ur_simulation_gazebo ur_sim_moveit.launch.py ur_type:=ur5 (since the project uses the default Universal Robot Description and Universal Robot Simulation)
 
 ## Roadmap
 
