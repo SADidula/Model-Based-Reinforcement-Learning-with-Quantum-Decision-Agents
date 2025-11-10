@@ -31,9 +31,10 @@ def offset_polygon(vertices, offset_x=0.0, offset_y=0.0):
 
 def _pentagon_vertices(circle_radius: float = 10.0):
     points = []
-    for i in range(0, 5):
-        x = circle_radius * math.sin(2 * math.pi * i / 5)
-        y = circle_radius * math.sin(2 * math.pi * i / 5) * math.cos(2 * math.pi * i / 5)
+    for i in range(5):
+        theta = 2 * math.pi * i / 5
+        x = circle_radius * math.cos(theta)
+        y = circle_radius * math.sin(theta)
         points.append((round(x, 2), round(y, 2)))
     return points
 
@@ -47,15 +48,19 @@ def _figure_8_vertices(resolution: int = 5, circle_radius: float = 10.0):
     return points
 
 
-def _star_vertices(resolution: int = 5, circle_radius: float = 10.0):
+def _star_vertices(resolution: int = 5, circle_radius: float = 10.0, inner_scale: float = 0.5):
+    # reduce inner circle scale for allowing the star shape to fit in small radius
+    inner_scale = 0.05 if args.max_radius < 0.25 else inner_scale
     points = []
     for i in range(0, resolution):
-        x = circle_radius * math.cos((2 * math.pi * i) / resolution + math.pi / 2)
-        y = circle_radius * math.sin((2 * math.pi * i) / resolution + math.pi / 2)
-        points.append((round(x, 2), round(y, 2)))
-        p = circle_radius * 0.5 * math.cos((2 * math.pi * i) / resolution + math.pi / 2 + 2 * math.pi / 10)
-        q = circle_radius * 0.5 * math.sin((2 * math.pi * i) / resolution + math.pi / 2 + 2 * math.pi / 10)
-        points.append((round(p, 2), round(q, 2)))
+        angle = (2 * math.pi * i) / resolution + math.pi / 2
+        x = circle_radius * math.cos(angle)
+        y = circle_radius * math.sin(angle)
+        points.append((float(x), float(y)))
+        inner_angle = angle + (math.pi / resolution)
+        p = circle_radius * inner_scale * math.cos(inner_angle)
+        q = circle_radius * inner_scale * math.sin(inner_angle)
+        points.append((float(p), float(q)))
     return points
 
 
@@ -205,7 +210,7 @@ class PathFollowerSimulator(Node):
             rl_agent=self.agent,
             main_path=self.path_polygon,
             boundary_penalties=self.boundary_polygons,
-            max_speed=0.5,
+            max_speed=0.125,
             max_turn_speed=12.0
         )
 
@@ -242,7 +247,8 @@ class PathFollowerSimulator(Node):
         elif shape == "pentagon":
             verts = _pentagon_vertices(circle_radius=rad)
         elif shape == "star":
-            star_res = max(5, res)
+            # star_res = max(5, res)
+            star_res = 5
             verts = _star_vertices(resolution=star_res, circle_radius=rad)
         else:
             verts = _circle_vertices(resolution=res, circle_radius=rad)
@@ -346,7 +352,7 @@ class PathFollowerSimulator(Node):
 
     def _prepare_visualization_markers(self):
         self.main_path_marker = self._as_marker(
-            self.path_polygon, "main_path", 1, color=(1.0, 1.0, 1.0, 1.0), width=0.07
+            self.path_polygon, "main_path", 1, color=(1.0, 1.0, 1.0, 1.0), width=0.01
         )
         color_palette = [
             (1.0, 0.0, 0.0, 0.5),
