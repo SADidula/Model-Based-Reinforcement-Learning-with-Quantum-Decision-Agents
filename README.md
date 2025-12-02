@@ -1,7 +1,3 @@
-Below is an enhanced, visually engaging, and better-structured README.
-I kept your technical content intact, added relevant icons, improved hierarchy, and made it more inviting for readers.
-
-You can paste it directly into GitHub (GitHub supports all included icons and badges).
 
 ---
 
